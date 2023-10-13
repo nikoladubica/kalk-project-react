@@ -47,7 +47,7 @@ const ListItem = (props) => {
                 </span>
 
                 <span className="text-xl font-bold mt-4 text-red-300">
-                    {props.item.costTotal} RSD
+                    {props.item.totalCost} RSD
                 </span>
             </div>
 
