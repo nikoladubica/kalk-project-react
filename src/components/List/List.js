@@ -25,7 +25,7 @@ const List = () => {
         <div className="List p-6">
             <h2 className="text-xl font-bold mb-4 text-left">New Calculations</h2>
 
-            <div className="grid grid-cols-3 gap-4 mb-4">
+            <div className="grid md:grid-cols-3 gap-4 mb-4">
                 {items.map((item, index) => (
                     <ListItem key={index} item={item} className={!more && index >= 3 && 'hidden'}/>
                 ))}

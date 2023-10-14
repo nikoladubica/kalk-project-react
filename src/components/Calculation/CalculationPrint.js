@@ -15,53 +15,53 @@ const CalculationPrint = (props) => {
 
     return (
         <div className='w-full'>
-            <table className="table-auto text-sm text-left text-gray-800">
-                <thead className="text-xs text-gray-700 uppercase bg-slate-400">
+            <table className="table-fixed w-[595px] text-sm text-left text-slate-200 print:text-black">
+                <thead className="text-xs text-slate-200 bg-blue-800">
                     <tr>
-                        <th scope="col" className="px-6 py-3">Sifra artikla</th>
-                        <th scope="col" className="px-6 py-3">Naziv</th>
-                        <th scope="col" className="px-6 py-3 text-center">Jedinica mere</th>
-                        <th scope="col" className="px-6 py-3 text-center">Nabavna cena</th>
-                        <th scope="col" className="px-6 py-3 text-center">Marza</th>
-                        <th scope="col" className="px-6 py-3 text-center">Prodajna cena bez PDV</th>
-                        <th scope="col" className="px-6 py-3 text-center">Tarifa poreza</th>
-                        <th scope="col" className="px-6 py-3 text-center">PDV</th>
-                        <th scope="col" className="px-6 py-3 text-center">Prodajna cena sa PDV</th>
-                        <th scope="col" className="px-6 py-3 text-center">Kolicina</th>
+                        <th scope="col" className=" p-1">Sifra artikla</th>
+                        <th scope="col" className=" p-1">Naziv</th>
+                        <th scope="col" className=" p-1 text-center">Jedinica mere</th>
+                        <th scope="col" className=" p-1 text-center">Nabavna cena</th>
+                        <th scope="col" className=" p-1 text-center">Marza</th>
+                        <th scope="col" className=" p-1 text-center">Prodajna cena bez PDV</th>
+                        <th scope="col" className=" p-1 text-center">Tarifa poreza</th>
+                        <th scope="col" className=" p-1 text-center">PDV</th>
+                        <th scope="col" className=" p-1 text-center">Prodajna cena sa PDV</th>
+                        <th scope="col" className=" p-1 text-center">Kolicina</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {props.items.map((item, index) => (
                         <tr key={item.id} className="border-b border-b-slate-300">
-                            <td className="px-6 py-4">
+                            <td className=" p-1">
                                 {index}
                             </td>
-                            <th scope="row" className="px-6 py-4">
+                            <th scope="row" className=" p-1">
                                 {item.name}
                             </th>
-                            <td className="px-6 py-4 text-center">
+                            <td className=" p-1 text-center">
                                 {item.unit}
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className=" p-1 text-center">
                                 {item.initialPrice}
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className=" p-1 text-center">
                                 {item.profitMargin}
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className=" p-1 text-center">
                                 {item.sellingPriceNoVAT}
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className=" p-1 text-center">
                                 {item.tariffVAT}
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className=" p-1 text-center">
                                 {item.vat}
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className=" p-1 text-center">
                                 {item.sellingPrice}
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className=" p-1 text-center">
                                 {item.quantity}
                             </td>
                         </tr>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import CalculationPrint from "./CalculationPrint";
+import Button from "../Button/Button";
 
 const Calculation = (props) => {
     const [items, setItems] = useState([])
@@ -25,7 +26,7 @@ const Calculation = (props) => {
                 sellingPriceNoVAT: itemObj.price_amount,
                 tariffVAT: 'A',
                 vat: itemObj.price_amount,
-                sellingPrice: parseFloat(e.target.value),
+                sellingPrice: (Math.round((parseFloat(e.target.value) + Number.EPSILON) * 100) / 100).toFixed(2),
                 quantity: itemObj.quantity,
             }
     
@@ -63,7 +64,31 @@ const Calculation = (props) => {
     }
 
     useEffect(() => {
-        getData(props.id)
+        const items = [
+            {
+                id: 1,
+                name: "Item 1",
+                quantity: 5,
+                price_amount: 10.99,
+                price_vat_discount: 2.00,
+            },
+            {
+                id: 2,
+                name: "Item 2",
+                quantity: 2,
+                price_amount: 7.49,
+                price_vat_discount: 1.50,
+            },
+            {
+                id: 3,
+                name: "Item 3",
+                quantity: 3,
+                price_amount: 15.99,
+                price_vat_discount: 3.25,
+            }
+        ];
+        // getData(props.id)
+        setItems(items)
     }, [])
 
     useEffect(() => {
@@ -71,10 +96,10 @@ const Calculation = (props) => {
     }, [calculations])
 
     return (
-        <div className="Calculation fixed top-[76px] left-0 h-[calc(100vh-76px)] w-screen bg-slate-200 z-[100]">
+        <div className="Calculation fixed top-0 left-0 h-screen w-screen z-[100] bg-blue-950">
             <div className="relative h-full w-full flex flex-col items-center justify-start p-6 overflow-y-scroll">
-                <table className="print:hidden table-auto text-sm text-left text-gray-800">
-                    <thead className="text-xs text-gray-700 uppercase bg-slate-400">
+                <table className="print:hidden table-auto w-full text-sm text-left text-slate-200">
+                    <thead className="text-xs text-slate-200 uppercase bg-blue-800">
                         <tr>
                             <th scope="col" className="px-6 py-3">Name</th>
                             <th scope="col" className="px-6 py-3 text-center">Quantity</th>
@@ -86,8 +111,8 @@ const Calculation = (props) => {
 
                     <tbody>
                         {items.map(item => (
-                            <tr key={item.id} className="border-b border-b-slate-300">
-                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap ">
+                            <tr key={item.id} className="border-b border-b-blue-800">
+                                <th scope="row" className="px-6 py-4 pl-0 font-medium whitespace-nowrap ">
                                     <div title={item.name} className="whitespace-nowrap max-w-[400px] w-[400px] overflow-hidden text-ellipsis">
                                         {item.name}
                                     </div>
@@ -107,9 +132,9 @@ const Calculation = (props) => {
                                         {item.price_vat_discount}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4 text-center">
+                                <td className="px-6 py-4 pr-0 text-center">
                                     <span>
-                                        <input onChange={setCalculationHandler} data-id={item.id} data-item={JSON.stringify(item)} type="text" className="bg-slate-300 border border-transparent py-2 px-4 rounded-full focus:ring-0 focus:border-none focus:outline-none" />
+                                        <input onChange={setCalculationHandler} data-id={item.id} data-item={JSON.stringify(item)} type="text" className="bg-blue-900 border border-transparent py-2 px-4 rounded-xl focus:ring-0 focus:border-none focus:outline-none" />
                                     </span>
                                 </td>
                             </tr>
@@ -118,12 +143,12 @@ const Calculation = (props) => {
                 </table>
 
                 <div className="print:hidden w-full mt-4 mb-16 flex justify-end items-center">
-                    <button onClick={showPrintHandler} className="py-2 px-8 rounded-full bg-blue-700 hover:bg-blue-800 active:bg-blue-900 transition-colors duration-300 text-white text-lg font-bold">Napravi fakturu</button>
+                    <Button text={'Create Invoice'} functionality={showPrintHandler} />
                 </div>
 
                 {showPrint && <CalculationPrint items={calculations} />}
                 {showPrint && <div className="print:hidden w-full mt-4 flex justify-end items-center">
-                    <button onClick={handlePrint} className="py-2 px-8 rounded-full bg-blue-700 hover:bg-blue-800 active:bg-blue-900 transition-colors duration-300 text-white text-lg font-bold">Stampaj</button>
+                    <Button text={'Print'} functionality={handlePrint} />
                 </div>}
 
                 <div className="print:hidden absolute top-2 right-2 text-2xl text-black h-12 w-12 flex items-center justify-center rounded-full cursor-pointer transition-colors duration-300 bg-slate-200 hover:bg-slate-300" onClick={closeModalHandler}>

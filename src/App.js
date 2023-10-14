@@ -1,6 +1,6 @@
 import './App.css';
-import Header from './components/layout/Header';
-import Hero from './components/layout/Hero';
+import Header from './components/Layout/Header';
+import Hero from './components/Layout/Hero';
 import List from './components/List/List';
 
 const App = () => {
