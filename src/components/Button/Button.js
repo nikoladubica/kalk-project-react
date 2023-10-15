@@ -33,20 +33,20 @@ const Button = (props) => {
         if (sync === true) syncRef.current.classList.add('animate-spin')
         buttonRef.current.classList.add('cursor-not-allowed', 'select-none')
         setDisabled(true)
-        // if (functionality) {
-        //     functionality().then(() => {
-        //         if (sync === true) syncRef.current.classList.remove('animate-spin')
-        //         buttonRef.current.classList.remove('cursor-not-allowed', 'select-none')
-        //         setDisabled(false)
-        //     }).catch(error => {
-        //         console.warn(error)
-        //     })
-        // }
-        setTimeout(() => {
-            if (sync === true) syncRef.current.classList.remove('animate-spin')
-            buttonRef.current.classList.remove('cursor-not-allowed', 'select-none')
-            setDisabled(false)
-        }, 2000)
+        if (functionality) {
+            functionality().then(() => {
+                if (sync === true) syncRef.current.classList.remove('animate-spin')
+                buttonRef.current.classList.remove('cursor-not-allowed', 'select-none')
+                setDisabled(false)
+            }).catch(error => {
+                console.warn(error)
+            })
+        }
+        // setTimeout(() => {
+        //     if (sync === true) syncRef.current.classList.remove('animate-spin')
+        //     buttonRef.current.classList.remove('cursor-not-allowed', 'select-none')
+        //     setDisabled(false)
+        // }, 2000)
     }
 
     const handler = () => {
