@@ -21,9 +21,9 @@ const Calculation = (props) => {
                 id: id,
                 name: itemObj.name,
                 unit: 'kom',
-                initialPrice: itemObj.price_amount,
-                profitMargin: itemObj.price_amount,
-                sellingPriceNoVAT: itemObj.price_amount,
+                initialPrice: itemObj.priceAmount,
+                profitMargin: itemObj.priceAmount,
+                sellingPriceNoVAT: itemObj.priceAmount,
                 tariffVAT: 'A',
                 vat: itemObj.price_amount,
                 sellingPrice: (Math.round((parseFloat(e.target.value) + Number.EPSILON) * 100) / 100).toFixed(2),
@@ -46,11 +46,7 @@ const Calculation = (props) => {
     }
 
     const getData = (id) => {
-        const params = {
-            purchase_invoice_id: id
-        }
-
-        axios.get('/invoice-lines', { params }).then(response => {
+        axios.get(`/api/invoice-lines?id=${id}`).then(response => {
             setItems(response.data)
         })
     }
@@ -64,36 +60,8 @@ const Calculation = (props) => {
     }
 
     useEffect(() => {
-        const items = [
-            {
-                id: 1,
-                name: "Item 1",
-                quantity: 5,
-                price_amount: 10.99,
-                price_vat_discount: 2.00,
-            },
-            {
-                id: 2,
-                name: "Item 2",
-                quantity: 2,
-                price_amount: 7.49,
-                price_vat_discount: 1.50,
-            },
-            {
-                id: 3,
-                name: "Item 3",
-                quantity: 3,
-                price_amount: 15.99,
-                price_vat_discount: 3.25,
-            }
-        ];
-        // getData(props.id)
-        setItems(items)
+        getData(props.id)
     }, [])
-
-    useEffect(() => {
-        console.log("calculations: ", calculations)
-    }, [calculations])
 
     return (
         <div className="Calculation fixed top-0 left-0 h-screen w-screen z-[100] bg-blue-950">
@@ -112,7 +80,7 @@ const Calculation = (props) => {
                     <tbody>
                         {items.map(item => (
                             <tr key={item.id} className="border-b border-b-blue-800">
-                                <th scope="row" className="px-6 py-4 pl-0 font-medium whitespace-nowrap ">
+                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap ">
                                     <div title={item.name} className="whitespace-nowrap max-w-[400px] w-[400px] overflow-hidden text-ellipsis">
                                         {item.name}
                                     </div>
@@ -124,18 +92,18 @@ const Calculation = (props) => {
                                 </td>
                                 <td className="px-6 py-4 text-center">
                                     <span>
-                                        {item.price_amount}
+                                        {item.priceAmount}
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 text-center">
                                     <span>
-                                        {item.price_vat_discount}
+                                        {item.priceVatDiscount}
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 pr-0 text-center">
-                                    <span>
+                                    <div className="flex justify-end">
                                         <input onChange={setCalculationHandler} data-id={item.id} data-item={JSON.stringify(item)} type="text" className="bg-blue-900 border border-transparent py-2 px-4 rounded-xl focus:ring-0 focus:border-none focus:outline-none" />
-                                    </span>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
